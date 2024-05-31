@@ -1,0 +1,31 @@
+version: '3.4'
+
+networks:
+    finartz-network:
+        driver: bridge
+
+services:
+    api:
+        image: finartz-api
+        depends_on:
+            - rabbitmq
+        build:
+            context: ..
+            dockerfile: Finartz.Online.Banking.Application/src/API/Dockerfile
+        ports: 
+            - "5001:80"
+        restart: on-failure
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        networks:
+            - finartz-network
+    
+    rabbitmq:
+        container_name: "finartz-rabbitmqcontainer"
+        image: rabbitmq:management
+        hostname: "rabbitmq"
+        ports:
+            - '5672:5672'
+            - '15672:15672'
+        networks:
+            - finartz-network

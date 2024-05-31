@@ -1,8 +1,8 @@
-﻿using MassTransit;
+﻿using Domain.Events;
+using MassTransit;
 using Microsoft.Extensions.Logging;
-using Shared;
 
-namespace API.Consumer;
+namespace Infrastructure.Consumers;
 
 public class SendNotificationWhenAccountCreatedConsumer : IConsumer<AccountCreated>
 {
